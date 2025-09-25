@@ -1,0 +1,39 @@
+﻿@using Demo.Presentation.ViewModels.UserViewModels
+@model UserDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>User @Model.FName @Model.LName Details</h1>
+
+
+
+<div>
+	<div class="mb-3">
+		<label class="form-label" asp-for="Id"></label>
+		<input asp-for="Id" class="form-control" readonly />
+	</div>
+	<div class="mb-3">
+		<label class="form-label" asp-for="FName"></label>
+		<input asp-for="FName" class="form-control"  readonly />
+	</div>
+	<div class="mb-3">
+		<label class="form-label" asp-for="LName"></label>
+		<input asp-for="LName" class="form-control"  readonly />
+	</div>
+	<div class="mb-3">
+		<label class="form-label" asp-for="Email"></label>
+		<input asp-for="Email" class="form-control"  readonly />
+	</div>
+	<div class="mb-3">
+		<label class="form-label" asp-for="PhoneNumber"></label>
+		<input asp-for="PhoneNumber" class="form-control"  readonly />
+	</div>
+
+	<div class="mt-4">
+		<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
+		<a asp-action="Index" class="btn btn-outline-dark">Back To list</a>
+	</div>
+	
+</div>

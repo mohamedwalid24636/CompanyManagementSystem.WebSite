@@ -1,0 +1,17 @@
+﻿@using Demo.Presentation.ViewModels.RoleViewModels
+@model RoleDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.RoleName Details</h1>
+
+
+
+<partial name="RoleDetailsDeletePartialView">
+
+<div class="mt-4">
+	<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
+	<a asp-action="Index" class="btn btn-outline-dark">Back To list</a>
+</div>

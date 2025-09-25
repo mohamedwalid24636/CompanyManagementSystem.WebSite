@@ -1,0 +1,29 @@
+﻿@using Demo.BusinessLogic.DataTransfareObject.DepartmentDtos
+@model DepartmentViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="row justify-content-center align-content-center mt-3">
+    <h1 class="col-8 my-4">Create Department</h1>
+
+    <form class="col-8" method="post" asp-controller="Department" asp-action="Create" >
+        <div asp-validation-summary="All" class ="text-danger"></div>   @*Display all model Error Messages *@
+
+<!-- #region name -->
+
+	<partial name = "PartialViews/_CreateEditePartialView" />
+
+
+<!-- #endregion -->
+        
+
+
+        <div class="mt-4 m-auto">
+            <input class="btn btn-primary" type="submit" value="Create" />
+            <a class="btn btn-outline-dark">Back to list</a>
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,31 @@
+﻿@using Demo.Presentation.ViewModels.UserViewModels
+@model UserEditViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center align-content-center mt-3">
+	<h1 class="col-8 my-4">Edit @Model.FName @Model.LName User</h1>
+    <form method="post" asp-controller="UserManager" asp-action="Edit" class="row col-8">
+        <div asp-validation-summary="ModelOnly"></div>
+	
+	<div class="mb-3">
+		<label class="form-label" asp-for="FName"></label>
+		<input asp-for="FName" class="form-control"  />
+	</div>
+	<div class="mb-3">
+		<label class="form-label" asp-for="LName"></label>
+		<input asp-for="LName" class="form-control"  />
+	</div>
+	<div class="mb-3">
+		<label class="form-label" asp-for="PhoneNumber"></label>
+		<input asp-for="PhoneNumber" class="form-control"  />
+	</div>
+
+	<div class="mt-4 m-auto">
+		<input class="btn btn-success" type="submit" value="Save" />
+		<a asp-controller="Employee" asp-action="Index" class="btn btn-outline-dark">Back to list</a>
+	</div>
+    </form>
+</div>
