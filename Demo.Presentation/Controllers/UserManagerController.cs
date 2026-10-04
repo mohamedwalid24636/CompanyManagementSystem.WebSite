@@ -8,12 +8,24 @@ using Microsoft.Identity.Client;
 
 namespace Demo.Presentation.Controllers
 {
-    public class UserManagerController(UserManager<ApplicationUser> UserManager, ILogger<EmployeeController> _Logger, IWebHostEnvironment _Environment) : Controller
+    public class UserManagerController(UserManager<ApplicationUser> UserManager, RoleManager<IdentityRole> roleManager, ILogger<EmployeeController> _Logger, IWebHostEnvironment _Environment) : Controller
     {
         public IActionResult Index(string? SearchKey)
         {
-            return SearchKey is null ? View ( UserManager.Users.ToList())
-                : View(UserManager.Users.Where(u => u.FirstName.Contains(SearchKey) || u.LastName.Contains(SearchKey)).ToList());
+            var Users = SearchKey is null ? UserManager.Users.ToList():
+                UserManager.Users.Where(u => u.FirstName.Contains(SearchKey) || u.LastName.Contains(SearchKey)).ToList();
+
+            var userRoles = new Dictionary<string, string>();
+
+            foreach (var user in Users)
+            {
+                var role = (UserManager.GetRolesAsync(user)).Result.FirstOrDefault();
+                userRoles[user.Id] = role ?? "No Role";
+            }
+
+            ViewBag.UserRoles = userRoles;
+            return View(Users);
+
         }
         public IActionResult Details(string Id)
         {
@@ -46,6 +58,10 @@ namespace Demo.Presentation.Controllers
                     FName = User.FirstName,
                     LName = User.LastName,
                     PhoneNumber = User.PhoneNumber,
+                    Role = UserManager.GetRolesAsync(User).Result.FirstOrDefault(),
+                    Roles = roleManager.Roles
+                          .Select(r => r.Name!)
+                          .ToList()
                 };
                 return View(UserEdit);
             }
@@ -56,7 +72,7 @@ namespace Demo.Presentation.Controllers
         {
 
             if (string.IsNullOrEmpty(Id)) return BadRequest();
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -73,6 +89,23 @@ namespace Demo.Presentation.Controllers
                     User.FirstName = ViewModel.FName;
                     User.LastName = ViewModel.LName;
                     User.PhoneNumber = ViewModel.PhoneNumber;
+
+                   
+                        var UserRoles = UserManager.GetRolesAsync(User).Result;
+                        if (UserRoles.Count > 0)
+                        {
+                            var result = UserManager.RemoveFromRolesAsync(User, UserRoles).Result;
+                        }
+
+                        if ( !string.IsNullOrEmpty(ViewModel.Role)&&roleManager.RoleExistsAsync(ViewModel.Role).Result)
+                        {
+                            var result = UserManager.AddToRoleAsync(User, ViewModel.Role).Result;
+                        }
+
+                    
+
+
+
                     var Result = UserManager.UpdateAsync(User).Result;
                     if (Result.Succeeded)
                         return RedirectToAction("Index");

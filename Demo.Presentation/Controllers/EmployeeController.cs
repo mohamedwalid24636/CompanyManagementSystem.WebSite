@@ -112,7 +112,8 @@ namespace Demo.Presentation.Controllers
                 PhoneNumber = Employee.PhoneNumber,
                 Gender = Enum.Parse<Gender>(Employee.Gender),
                 EmployeeType = Enum.Parse<EmployeeType>(Employee.EmployeeType),
-                DepartmentId = Employee.DepartmentId// Assuming DepartmentId is nullable in Employee model
+                DepartmentId = Employee.DepartmentId , // Assuming DepartmentId is nullable in Employee model
+                ImgUrl = Employee.Image
 
             };
             return View (EmployeeViewModel);
@@ -127,6 +128,7 @@ namespace Demo.Presentation.Controllers
             {
                 try
                 {
+
                     var UpdateEmployeeDto = new UpdateEmployeeDto()
                     {
                         Id = id.Value, // Use id.Value to get the actual integer value
@@ -141,6 +143,8 @@ namespace Demo.Presentation.Controllers
                         Gender = EmployeeViewModel.Gender,
                         EmployeeType = EmployeeViewModel.EmployeeType,
                         DepartmentId = EmployeeViewModel.DepartmentId, // Assuming you have a DepartmentId in your EmployeeViewModel
+                        Image = EmployeeViewModel.Image,
+                        ImgUrl = EmployeeViewModel.ImgUrl
 
                     };
                     var result = _EmployeeService.UpdateEmployee(UpdateEmployeeDto);

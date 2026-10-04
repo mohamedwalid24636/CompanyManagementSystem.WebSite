@@ -2,16 +2,16 @@
 @inject IDepartmentService DepartmentService
 @model EmployeeViewModel
 @{
-    
- //                                                                                          // value , Display
-	// var Departments = new SelectList(ViewData["Departments"] as IEnumerable<DepartmentDto> , "Id" , "Name"); // حولت ال obj اللي راجع من ال viewdata لحاجة من نوع ال selectlist عشان اقدر استخدمها في ال select
- //    //في اوفرلود بياخد ال قيمة والاسم االلي هيظهر لل selectlist 
- //----------------------------------------------------------------------------------------------
 
- // After injection 
+    //                                                                                          // value , Display
+    // var Departments = new SelectList(ViewData["Departments"] as IEnumerable<DepartmentDto> , "Id" , "Name"); // حولت ال obj اللي راجع من ال viewdata لحاجة من نوع ال selectlist عشان اقدر استخدمها في ال select
+    //    //في اوفرلود بياخد ال قيمة والاسم االلي هيظهر لل selectlist
+    //----------------------------------------------------------------------------------------------
 
-    var Departments = new SelectList(DepartmentService.GetAllDepartments(),"DeptId", "name");        //خد بالك انك لما كتبت اسم ال id غلط ادالك خطا ان ال selectlist of gender is null !!
- }
+    // After injection
+
+    var Departments = new SelectList(DepartmentService.GetAllDepartments(), "DeptId", "name");        //خد بالك انك لما كتبت اسم ال id غلط ادالك خطا ان ال selectlist of gender is null !!
+}
 <div class="form-group mb-3 col-6">
     <label class="form-label" asp-for="Name"></label>
     <input asp-for="Name" class="form-control" />
@@ -68,7 +68,7 @@
 
 <div class="form-group mb-3 col-6">
     <label class="form-label" asp-for="DepartmentId"></label>
-    <select asp-for="DepartmentId" asp-items="Departments"   @*asp-items takes IEnumerable of select list اللي انا حولتها فوق *@
+    <select asp-for="DepartmentId" asp-items="Departments" @*asp-items takes IEnumerable of select list اللي انا حولتها فوق *@
             class="form-control">
         <option value="@null">Choose Department</option>
     </select>
@@ -90,4 +90,6 @@
 <div class="form-group mb-3 col-6">
     <input asp-for="IsActive" class="form-check-input" />
     <label class="col-form-label" asp-for="IsActive"></label>
-</div> 
+</div>
+
+<input asp-for="ImgUrl" type="hidden" />

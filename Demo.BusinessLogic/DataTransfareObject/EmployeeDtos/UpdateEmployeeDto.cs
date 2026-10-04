@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Demo.DataAccesse.Models.EmployeeModel;
+using Demo.DataAccesse.Models.Shared.Enums;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Demo.DataAccesse.Models.EmployeeModel;
-using Demo.DataAccesse.Models.Shared.Enums;
 
 namespace Demo.BusinessLogic.DataTransfareObject.EmployeeDtos
 {
@@ -38,6 +39,8 @@ namespace Demo.BusinessLogic.DataTransfareObject.EmployeeDtos
         public int CreatedBy { get; set; }
         public int LastModifiedBy { get; set; }
         public int? DepartmentId { get; set; } // Foreign Key to Department
+        public string? ImgUrl { get; set; }
+        public IFormFile? Image { get; set; }
 
         #region Old
         //public int Id { get; set; }

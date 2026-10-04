@@ -39,12 +39,13 @@ namespace Demo.BusinessLogic.Profiles
 
 
             CreateMap<UpdateEmployeeDto, Employee>()
-            .ForMember(Dest => Dest.HiringDate, Options => Options.MapFrom(Src => Src.HiringDate.ToDateTime(TimeOnly.MinValue)));
+            .ForMember(Dest => Dest.HiringDate, Options => Options.MapFrom(Src => Src.HiringDate.ToDateTime(TimeOnly.MinValue)))
+            .ForMember(Dest => Dest.ImageName, Options => Options.MapFrom(Src => Src.ImgUrl));
 
 
 
 
-       
+
         }
     }
 }

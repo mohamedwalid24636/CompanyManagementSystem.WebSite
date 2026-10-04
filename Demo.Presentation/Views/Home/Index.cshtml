@@ -1,8 +1,97 @@
-﻿@{
+﻿@* @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+ *@
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container mt-5">
+
+    <div class="text-center mb-5">
+        <h1 class="display-4">Welcome @* @User.Identity?.Name *@</h1>
+        <p class="lead">Company Management System Dashboard</p>
+        <hr />
+    </div>
+
+    @if (User.Identity!.IsAuthenticated)
+    {
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-3">
+                <div class="card shadow-sm text-center h-100">
+                    <div class="card-body">
+                        <i class="fa-solid fa-building fa-3x text-primary mb-3"></i>
+                        <h4>Departments</h4>
+                        <p>Manage company departments.</p>
+                        <a asp-controller="Department" asp-action="Index" class="btn btn-primary">
+                            Go To Departments
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="card shadow-sm text-center h-100">
+                    <div class="card-body">
+                        <i class="fa-solid fa-users fa-3x text-success mb-3"></i>
+                        <h4>Employees</h4>
+                        <p>Manage employee records.</p>
+                        <a asp-controller="Employee" asp-action="Index" class="btn btn-success">
+                            Go To Employees
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="card shadow-sm text-center h-100">
+                    <div class="card-body">
+                        <i class="fa-solid fa-user fa-3x text-warning mb-3"></i>
+                        <h4>Users</h4>
+                        <p>Manage application users.</p>
+                        <a asp-controller="UserManager" asp-action="Index" class="btn btn-warning">
+                            Go To Users
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="card shadow-sm text-center h-100">
+                    <div class="card-body">
+                        <i class="fa-solid fa-user-shield fa-3x text-danger mb-3"></i>
+                        <h4>Roles</h4>
+                        <p>Manage user roles.</p>
+                        <a asp-controller="RoleManager" asp-action="Index" class="btn btn-danger">
+                            Go To Roles
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+            <h4>Welcome to Company Management System</h4>
+            <p>Please login to access the system features.</p>
+
+            <a asp-controller="Account" asp-action="Login" class="btn btn-success me-2">
+                Login
+            </a>
+
+            <a asp-controller="Account" asp-action="Register" class="btn btn-primary">
+                Register
+            </a>
+        </div>
+    }
+
 </div>

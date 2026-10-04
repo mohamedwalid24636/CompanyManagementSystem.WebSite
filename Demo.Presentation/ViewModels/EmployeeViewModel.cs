@@ -33,6 +33,7 @@ namespace Demo.Presentation.ViewModels
         public int LastModifiedBy { get; set; }
         [Display (Name = "Department")]
         public int? DepartmentId { get; set; } // Foreign Key to Department
+        public string? ImgUrl { get; set; } 
         public IFormFile? Image { get; set; }
     }
 }

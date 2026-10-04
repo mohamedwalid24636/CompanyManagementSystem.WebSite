@@ -1,12 +1,13 @@
-﻿@model IEnumerable<ApplicationUser> 
+﻿@model IEnumerable<ApplicationUser>
 @{
     ViewData["Title"] = "Index";
+    var userRoles = ViewBag.UserRoles as Dictionary<string, string>;
 }
 
 
 <h1 class="my-3">All Users</h1>
 
-  
+
 
 @*Delete Confirmation message*@
 @if (!string.IsNullOrWhiteSpace(TempData["Message"] as string))
@@ -46,37 +47,37 @@
 {
     <table class="table table-striped table-hover mt-2 text-start">
 
-        <thead  >
-        <tr >
-        <th>@Html.DisplayNameFor(U => U.Id)</th>
-        <th>@Html.DisplayNameFor(U => U.FirstName)</th>
-        <th>@Html.DisplayNameFor(U => U.LastName)</th>
-        <th>@Html.DisplayNameFor(U => U.Email)</th>
-        <th>Roles</th>
-        <th>@Html.DisplayNameFor(U => U.PhoneNumber)</th>
-        <th>Details</th>
-        <th>Update</th>
-        <th>Delete</th>
-        </tr>
-    </thead >
-        <tbody>
-        @foreach (var User in Model)
-        {
+        <thead>
             <tr>
+                <th>@Html.DisplayNameFor(U => U.Id)</th>
+                <th>@Html.DisplayNameFor(U => U.FirstName)</th>
+                <th>@Html.DisplayNameFor(U => U.LastName)</th>
+                <th>@Html.DisplayNameFor(U => U.Email)</th>
+                <th>Role</th>
+                <th>@Html.DisplayNameFor(U => U.PhoneNumber)</th>
+                <th>Details</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var User in Model)
+            {
+                <tr>
 
-            <td>@User.Id</td>
-            <td>@User.FirstName</td>
-            <td>@User.LastName</td>
-            <td>@User.Email</td>
-            <td></td>
-            <td>@User.PhoneNumber</td>
+                    <td>@User.Id</td>
+                    <td>@User.FirstName</td>
+                    <td>@User.LastName</td>
+                    <td>@User.Email</td>
+                    <td>@(userRoles?.GetValueOrDefault(User.Id) ?? "No Role")</td>
+                    <td>@User.PhoneNumber</td>
                     <td><a class="btn " style="color: darkcyan;" asp-action="Details" asp-Route-Id="@User.Id"><i class="fa-solid fa-eye"></i></a></td>
                     <td><a class="btn " style="color: gold;" asp-action="Edit" asp-Route-Id="@User.Id"><i class="fa-solid fa-pen-to-square"></i></a></td>
                     <td><a class="btn " style="color: tomato" asp-action="Delete" asp-Route-Id="@User.Id"><i class="fa-solid fa-trash"></i></a></td>
-            </tr>
-        
-        }
-    </tbody>
+                </tr>
+
+            }
+        </tbody>
 
     </table>
 }

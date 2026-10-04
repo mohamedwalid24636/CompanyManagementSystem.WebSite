@@ -188,6 +188,14 @@ namespace Demo.Presentation.Controllers
 
         }
 
+
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            _signinManager.SignOutAsync().Wait();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
         //I Need  ==>>  User  , Token , New Password 
 
 

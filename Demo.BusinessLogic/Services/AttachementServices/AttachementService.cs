@@ -11,18 +11,34 @@ namespace Demo.BusinessLogic.Services.AttachementServices
 {
     public class AttachementService : IAttachementService
     {
-        List<string> AllowedExtenSions = [".png", ".jpg", "jpeg"];
+        List<string> AllowedExtenSions = [".png", ".jpg", ".jpeg"];
         const int MaxSize = 2_097_152;
-        public bool Delete(string FilePath)  
-        {
-            if (!File.Exists(FilePath)) return false;
-            else
-            {
-                File.Delete(FilePath);
-                return true; 
-            }
+        //public bool Delete(string FilePath)  
+        //{
+        //    if (!File.Exists(FilePath)) return false;
+        //    else
+        //    {
+        //        File.Delete(FilePath);
+        //        return true; 
+        //    }
 
+        //}
+        public bool Delete(string FileName)
+        {
+            var filePath = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "wwwroot",
+                "Files",
+                "Images",
+                FileName);
+
+            if (!File.Exists(filePath))
+                return false;
+
+            File.Delete(filePath);
+            return true;
         }
+
 
         public string? Upload(IFormFile File, string FolderName)
         {

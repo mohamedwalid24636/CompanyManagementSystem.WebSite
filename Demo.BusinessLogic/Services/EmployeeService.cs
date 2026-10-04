@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Demo.BusinessLogic.DataTransfareObject.EmployeeDtos;
 using Demo.BusinessLogic.Factories;
 using Demo.BusinessLogic.Services.AttachementServices;
 using Demo.DataAccesse.Models.EmployeeModel;
 using Demo.DataAccesse.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Demo.BusinessLogic.Services
 {
@@ -84,9 +85,19 @@ namespace Demo.BusinessLogic.Services
         }
 
         //Update Employee
-        public int UpdateEmployee( UpdateEmployeeDto UpdateEmployeeDto)
+        public int UpdateEmployee( UpdateEmployeeDto Dto)
         {
-            _UnitOfWork.EmployeeRepository.Update(_mapper.Map<UpdateEmployeeDto , Employee>(UpdateEmployeeDto));
+            if (Dto.ImgUrl != null && Dto.Image != null)      //PictureName != null  ===>  User already has picture   &&   //Image != null ===> User want to update his picture
+            {                                                                         // بيقا لازم تمسح الصورة القذيمة الاول
+                _AttachementService.Delete(Dto.ImgUrl);
+            }
+            if (Dto.Image != null)                                          //Image != null ===> User want to update his picture 
+            {                                                                         // يبقا هترفع صورة جذيذه بعذ ما مسحت القذيمة     او     مفيش صورة قذيمة اصلا و هتضيف واخذه جذيذه علي طول  
+                var ImagePath = _AttachementService.Upload(Dto.Image , "Images");
+                if (ImagePath == null) throw new Exception("Image upload failed");  // ===== >  Handle Exception
+                Dto.ImgUrl = ImagePath;
+            }
+            _UnitOfWork.EmployeeRepository.Update(_mapper.Map<UpdateEmployeeDto , Employee>(Dto));
             return _UnitOfWork.SaveChanges();
         }
 

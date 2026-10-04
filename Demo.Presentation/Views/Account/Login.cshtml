@@ -7,6 +7,10 @@
 
 <div class="main-agileinfo">
     <div class="agileits-top">
+        <div style="text-align:center; margin-bottom:25px;">
+            <h2 style="color:white; margin:0;">Welcome Back</h2>
+            <p style="color:#ddd; margin-top:8px;">Login to your account</p>
+        </div>
         <form asp-action="Login" method="post">
             <div asp-validation-summary="ModelOnly"></div>                   @*"All"" Or "ModelOnly"*@
 
@@ -19,7 +23,7 @@
 
             <div class="wthree-text">
                 <label class="anim">
-                    <input asp-for="RememberMe" class="checkbox" required>
+                    <input asp-for="RememberMe" class="checkbox" >
                     <span>Keep Me Signed In</span>
                 </label>
                 <div class="clear"> </div>
